@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor Industrial</title>
+</head>
+<body>
+    <h1>Dashboard de Sensores</h1>
+    <div id="resultado">Carregando dados...</div>
+
+    <script>
+        // O endereço deve ser exatamente o mesmo que funcionou no navegador
+        fetch('http://localhost:3000/api/dados')
+            .then(response => response.json())
+            .then(data => {
+                // Atualiza o HTML com os dados que o servidor enviou
+                document.getElementById('resultado').innerHTML = `
+                    <p>Sensor ID: ${data.sensorId}</p>
+                    <p>Temperatura: <strong>${data.temperatura}°C</strong></p>
+                `;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                document.getElementById('resultado').innerText = 'Erro ao carregar os dados.';
+            });
+    </script>
+</body>
+</html>
